@@ -1,23 +1,19 @@
 import express from 'express';
-import morgan from "morgan";
-
-const app = express(); // express 생성
-const loggerMiddleware = morgan("dev");
+import morgan from 'morgan';
+import globalRouter from './routers/globalRouter';
+import userRouter from './routers/userRouter';
+import videoRouter from './routers/videoRouter';
 
 const PORT = 4000;
 
-const handleHome = (req, res) => {
-  return res.send('Hello Home');
-};
+const app = express(); // express 생성
+const loggerMiddleware = morgan('dev');
 
-const handleLogin = (req, res) => {
-  res.send('Here Login');
-};
+app.use(loggerMiddleware); // middleware 사용
 
-app.use(loggerMiddleware);
-
-app.get('/', handleHome); // GET 요청시 이벤트
-app.get('/login', handleLogin);
+app.use('/', globalRouter); // Router 사용
+app.use('/users', userRouter);
+app.use('/videos', videoRouter);
 
 const handleListening = () => console.log(`Server listeting on port ${PORT}`);
 
