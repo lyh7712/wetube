@@ -15,6 +15,8 @@ app.use('/', globalRouter); // Router 사용
 app.use('/users', userRouter);
 app.use('/videos', videoRouter);
 
+console.log(videoRouter);
+
 const handleListening = () => console.log(`Server listeting on port ${PORT}`);
 
 app.listen(PORT, handleListening);
